@@ -1,0 +1,57 @@
+<div class="row mt-4">
+    <h1 class="text-center">Alterar Editoriales</h1>
+</div>
+
+<hr>
+
+<div class="row mt-2 mb-2 ">
+    <div class="col-12">
+        <a href="/editorials/create" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Agregar Nuevo Editorial</a>
+    </div>
+</div>
+
+
+{{#if hasEditorials}}
+<div class="row mt-3">
+{{#each editorialsList}}
+    <div class="col-12 col-sm-3 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{{this.name}}</h4>
+                 <p class="card-text">
+                <ul class="list-unstyled">
+                    <li><i class="bi bi-telephone"></i> <strong> Teléfono: </strong> {{this.phone}}</li>
+                    <li><i class="bi bi-globe-americas"></i> <strong> País: </strong> {{this.country}}</li>
+                    <li><i class="bi bi-book"></i> <strong> Libros: </strong> {{this.bookCount}}</li>   
+                </ul>
+                </p>
+                <hr>
+                <div class="mt-2">
+                <a href="/editorials/edit/{{this.id}}" class="btn btn-primary float-start me-2"><i class="bi bi-pencil"></i> Editar</a>
+                <form method="post" action="/editorials/delete">
+                    <input type="hidden" value="{{this.id}}" name="editorialId" />
+                    <button type="submit" class="btn btn-danger float-start delete-editorial"><i class="bi bi-trash"></i> Eliminar</button>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>    
+{{/each}}
+</div>
+
+{{else}}
+
+<div class="row">
+    <div class="col-12">
+        <div class="alert alert-secondary text-center" role="alert">
+            <i class="bi bi-info-circle"></i>
+            No existe ningún editorial registrado.
+        </div>
+    </div>
+</div>
+
+{{/if}}    
+
+{{#section "scripts"}}
+ <script src="/assets/js/site/index.js"></script>
+{{/section}}

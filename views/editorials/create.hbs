@@ -1,0 +1,43 @@
+<div class="row mt-4">
+    <h1 class="text-center">{{#if editMode}}Editar Editorial "{{editorial.name}}"{{else}}Agregar Nuevo Editorial{{/if}}</h1>
+</div>
+
+<div class="d-flex justify-content-center align-items-center mt-3" id="editorials-form-container">
+<div class="col-6">
+    <div class="card">
+        <div class="card-body">
+            <form method="post" id="base-form" action="/editorials/{{#if editMode}}edit{{else}}create{{/if}}">
+
+                <div class="mb-3">
+                <label for="editorial-name" class="form-label">Nombre del Editorial</label>
+                <input class="form-control" id="editorial-name" type="text" name="editorialName" value="{{#if editMode}}{{editorial.name}}{{/if}}"  placeholder="Ej. Anagrama" required>
+                </div>
+
+                <div class="mb-3">
+                <label for="editorial-phone" class="form-label">Número de Contacto del Editorial</label>
+                <input class="form-control" id="editorial-phone" type="text" name="editorialPhone" value="{{#if editMode}}{{editorial.phone}}{{/if}}"  placeholder="Ej. 829-441-..." required>
+                </div>
+
+                <div class="mb-3">
+                <label for="editorial-country" class="form-label">País del Editorial</label>
+                <input class="form-control" id="editorial-country" type="text" name="editorialCountry" value="{{#if editMode}}{{editorial.country}}{{/if}}"  placeholder="Ej. Italia" required>
+                </div>
+                
+                {{#if editMode}}
+                <input type="hidden" name="editorialId" value="{{editorial.id}}">
+                {{/if}}
+
+                <div class="d-flex gap-2">
+                <div clas="col-6 mb-3">
+                    <a class="btn btn-danger" href="/editorials/index" id="clear-button"><i class="bi bi-arrow-left"></i> Cancelar y Volver</a>
+                </div>  
+
+                <div clas="col-6 mb-3 ">
+                    <button type="submit" class="btn btn-primary" id="create-button"><i class="bi bi-floppy"></i> Guardar</button>
+                </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
