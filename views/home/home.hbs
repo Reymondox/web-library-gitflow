@@ -1,0 +1,106 @@
+<div class="row mt-4">
+    <h1 class="text-center">Web Library - Lista de Libros</h1>
+</div>
+
+        {{#if hasBooks}}
+        <hr>
+        <div>
+            <form class="d-flex gap-3" method="post" action="/home/index">
+    
+            <div class="dropdown-center">
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                Seleccionar Categorías
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                {{#each categoriesList}}
+                    <li>
+                        <a class="dropdown-item">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="{{this.id}}" name="searchCategorieId" id="{{this.name}}{{this.id}}" 
+                                {{#if ../searchMode}}{{#contains ../searchCategorieId this.id}}checked{{/contains}}{{/if}}/>
+                                <label class="form-check-label" for="{{this.name}}{{this.id}}">{{this.name}}</label>
+                            </div>
+                        </a>
+                    </li>
+                    {{/each}}
+                </ul>
+            </div>
+
+
+            <div class="dropdown-center">
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                Seleccionar Autores
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                {{#each authorsList}}
+                    <li>
+                        <a class="dropdown-item">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="{{this.id}}" name="searchAuthorId" id="{{this.name}}{{this.id}}" 
+                                {{#if ../searchMode}}{{#contains ../searchAuthorId this.id}}checked{{/contains}}{{/if}}/>
+                                <label class="form-check-label" for="{{this.name}}{{this.id}}">{{this.name}}</label>
+                            </div>
+                        </a>
+                    </li>
+                    {{/each}}
+                </ul>
+            </div>
+
+
+            <input class="form-control" type="text"  name="searchBookName" {{#if searchMode}}value="{{searchBookName}}"{{/if}} 
+            placeholder="Buscar Libro Por Nombre" aria-label="Search"/>
+            <button class="btn btn-outline-primary" type="submit">Buscar</button>
+            </form>
+        </div>
+
+            {{#if searchMode}}
+                {{#unless (hasContent (searchInList booksList searchBookName searchCategorieId searchAuthorId))}}
+                <div class="row mb-3 mt-3">
+                <div class="col-12">
+                    <div class="alert alert-secondary text-center" role="alert">
+                        <i class="bi bi-info-circle"></i>
+                        No se ha encontrado ningún libro bajo los parámetros de búsqueda.
+                    </div>
+                </div>
+            </div>
+                {{/unless}}
+            {{/if}}
+
+            <div class="row mt-3 mb-3">
+            {{#each (searchInList booksList searchBookName searchCategorieId searchAuthorId)}}
+                <div class="col-12 col-sm-3 mb-3">
+                    <div class="card">
+                    <img src="{{this.imageURL}}" class="card-img-top img-resizer" draggable="false"  alt="imagen de: {{this.name}}">
+                        <div class="card-body">
+                            <h4 class="card-title">{{this.name}}</h4>
+                            <p class="card-text">
+                            <ul class="list-unstyled">
+                                <li><i class="bi bi-list-task"></i> <strong> Categoría: </strong> {{this.Category.name}}</li> 
+                                <li><i class="bi bi-person-fill-gear"></i> <strong> Autor: </strong> {{this.Author.name}}</li>
+                                <li><i class="bi bi-journal-text"></i> <strong> Editorial: </strong> {{this.Editorial.name}}</li>
+                                <li><i class="bi bi-calendar-week"></i> <strong> Lanzamiento: </strong> {{this.releaseDate}}</li>
+                            </ul>
+                            </p>
+                            <div class="mt-2">
+                            <a href="/home/details/{{this.id}}" class="btn btn-primary float-start me-2"><i class="bi bi-eye"></i> Ver Detalles</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+            </div>
+
+            {{else}}
+
+        <div class="row">
+            <div class="col-12">
+                <div class="alert alert-secondary text-center" role="alert">
+                    <i class="bi bi-info-circle"></i>
+                    No existe ningún libro registrado.
+                </div>
+            </div>
+        </div>
+
+        {{/if}}

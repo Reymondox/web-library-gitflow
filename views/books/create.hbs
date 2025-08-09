@@ -1,0 +1,117 @@
+<div class="row mt-4">
+    <h1 class="text-center">{{#if editMode}}Editar Libro "{{book.name}}"{{else}}Agregar Nuevo Libro{{/if}}</h1>
+</div>
+
+{{#if hasAuthors}}
+    {{#if hasCategories}}
+        {{#if hasEditorials}}
+        <div class="d-flex justify-content-center align-items-center mt-3 mb-3" id="books-form-container">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    <form enctype="multipart/form-data" method="post" id="base-form" action="/books/{{#if editMode}}edit{{else}}create{{/if}}">
+
+                        <div class="mb-3">
+                            <label for="book-name" class="form-label">Nombre del Libro</label>
+                            <input class="form-control" id="book-name" type="text" name="bookName" value="{{#if editMode}}{{book.name}}{{/if}}"  placeholder="Ej. Heist" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="image-upload" class="form-label">Imagen del libro (Selecciona un Archivo)</label>
+                            {{#if editMode}}<img src="{{book.imageURL}}" class="img-resizer-edit mb-3" draggable="false" alt="imagen de: {{this.name}}">{{/if}}
+                            <input class="form-control" id="image-upload" type="file" name="imageFile"  placeholder="Ej. https//images.pexels.com/..." {{#if editMode}}{{else}}required{{/if}}>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="book-author" class="form-label">Autor del Libro</label>
+                            <select class="form-control" id="book-author" type="text" name="authorId" required>
+                            <option value="" >Selecciona un Autor</option>
+                            {{#each authorsList}}
+                            <option value="{{this.id}}" {{#if (eq this.id ../book.authorId)}}selected{{/if}}>{{this.name}}</option>
+                            {{/each}}
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="book-categorie" class="form-label">Categoría del Libro</label>
+                            <select class="form-control" id="book-categorie" type="text" name="categorieId" required>
+                            <option value="" >Selecciona una Categoría</option>
+                            {{#each categoriesList}}
+                            <option value="{{this.id}}" {{#if (eq this.id ../book.categorieId)}}selected{{/if}}>{{this.name}}</option>
+                            {{/each}}
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="book-editorial" class="form-label">Editorial del Libro</label>
+                            <select class="form-control" id="book-editorial" type="text" name="editorialId" required>
+                            <option value="" >Selecciona un Editorial</option>
+                            {{#each editorialsList}}
+                            <option value="{{this.id}}" {{#if (eq this.id ../book.editorialId)}}selected{{/if}}>{{this.name}}</option>
+                            {{/each}}
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="book-release-date" class="form-label">Fecha de Lanzamiento del Libro</label>
+                            <input class="form-control" id="book-release-date" type="date" name="releaseDate" value="{{#if editMode}}{{book.releaseDate}}{{/if}}" required>
+                        </div>
+
+                        
+                        {{#if editMode}}
+                        <input type="hidden" name="bookId" value="{{book.id}}">
+                        {{/if}}
+
+                        <div class="d-flex gap-2">
+                        <div clas="col-6 mb-3">
+                            <a class="btn btn-danger" href="/books/index" id="clear-button"><i class="bi bi-arrow-left"></i> Cancelar y Volver</a>
+                        </div>
+
+                        <div clas="col-6 mb-3 ">
+                            <button type="submit" class="btn btn-primary" id="create-button"><i class="bi bi-floppy"></i> Guardar</button>
+                        </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        {{else}}
+
+        <div class="row mt-3">
+            <div class="col-12">
+                <div class="alert alert-info text-center" role="alert">
+                    <i class="bi bi-info-circle"></i>
+                    No existe ningun editorial registrado. <a href="/editorials/create">Agregue uno</a> para poder agregar o editar un libro. 
+                </div>
+            </div>
+        </div>
+        
+        {{/if}}
+
+    {{else}}
+
+    <div class="row mt-3">
+        <div class="col-12">
+            <div class="alert alert-info text-center" role="alert">
+                <i class="bi bi-info-circle"></i>
+                No existe ninguna categoría registrada. <a href="/categories/create">Agregue una</a> para poder agregar o editar un libro. 
+            </div>
+        </div>
+    </div>
+
+    {{/if}}
+
+{{else}}
+
+<div class="row mt-3">
+    <div class="col-12">
+        <div class="alert alert-info text-center" role="alert">
+            <i class="bi bi-info-circle"></i>
+            No existe ningún autor registrado. <a href="/authors/create">Agregue uno</a> para poder agregar o editar un libro. 
+        </div>
+    </div>
+</div>
+
+{{/if}}

@@ -1,0 +1,40 @@
+<div class="row mt-4">
+<h1 class="text-center">Ver Detalles del Libro</h1>
+</div>
+
+<div class="d-flex justify-content-center align-items-center mt-3 mb-3" id="read-container">
+<div class="col-6">
+    <div class="card">
+    
+        <img src="{{book.imageURL}}" class="img-resizer-watch mb-3" draggable="false" alt="imagen de: {{book.name}}">
+        <div class="card-body">
+            <h2 class="card-title">{{book.name}}</h2>
+                <div class="row">
+
+                    <div class="col">
+                    <p class="card-text">
+                    <ul class="list-unstyled">
+                        <li><i class="bi bi-list-task"></i> <strong> Categoría: </strong> {{book.Category.name}}</li> 
+                        <li><i class="bi bi-person-fill-gear"></i> <strong> Autor: </strong> {{book.Author.name}}</li>
+                        <li><i class="bi bi-calendar-week"></i> <strong> Lanzamiento: </strong> {{book.releaseDate}}</li>
+                    </ul>
+                    </p>
+                    </div>
+
+                    <div class="col">
+                    <p class="card-text">
+                    <ul class="list-unstyled">
+                        <li><i class="bi bi-journal-text"></i> <strong> Editorial: </strong> {{book.Editorial.name}}</li>
+                        <li><i class="bi bi-telephone"></i> <strong> Teléfono: </strong> {{book.Editorial.phone}}</li>
+                        <li><i class="bi bi-globe-americas"></i> <strong> País: </strong> {{book.Editorial.country}}</li> 
+                    </ul>
+                    </p>
+                    </div>
+
+                </div>
+                <hr>
+            <a class="btn btn-primary" href="/home/index" id="get-back"><i class="bi bi-arrow-left"></i> Volver</a>
+        </div>
+    </div>
+</div>
+</div>
