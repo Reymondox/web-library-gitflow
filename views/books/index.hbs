@@ -1,0 +1,59 @@
+<div class="row mt-4">
+    <h1 class="text-center">Alterar Libros</h1>
+</div>
+
+<hr>
+
+<div class="row mt-2 mb-2 ">
+    <div class="col-12">
+        <a href="/books/create" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Agregar Nuevo Libro</a>
+    </div>
+</div>
+
+
+{{#if hasBooks}}
+<div class="row mt-3">
+{{#each booksList}}
+    <div class="col-12 col-sm-3 mb-3">
+        <div class="card">
+        <img src="{{this.imageURL}}" class="card-img-top img-resizer" draggable="false"  alt="imagen de: {{this.name}}">
+            <div class="card-body">
+                <h4 class="card-title">{{this.name}}</h4>
+                 <p class="card-text">
+                <ul class="list-unstyled">
+                    <li><i class="bi bi-list-task"></i> <strong> Categoría: </strong> {{this.Category.name}}</li> 
+                    <li><i class="bi bi-person-fill-gear"></i> <strong> Autor: </strong> {{this.Author.name}}</li>
+                    <li><i class="bi bi-journal-text"></i> <strong> Editorial: </strong> {{this.Editorial.name}}</li>
+                    <li><i class="bi bi-calendar-week"></i> <strong> Lanzamiento: </strong> {{this.releaseDate}}</li>
+                </ul>
+                </p>
+                <hr>
+                <div class="mt-2">
+                <a href="/books/edit/{{this.id}}" class="btn btn-primary float-start me-2"><i class="bi bi-pencil"></i> Editar</a>
+                <form method="post" action="/books/delete">
+                    <input type="hidden" value="{{this.id}}" name="bookId" />
+                    <button type="submit" class="btn btn-danger float-start delete-book"><i class="bi bi-trash"></i> Eliminar</button>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>    
+{{/each}}
+</div>
+
+{{else}}
+
+<div class="row">
+    <div class="col-12">
+        <div class="alert alert-secondary text-center" role="alert">
+            <i class="bi bi-info-circle"></i>
+            No existe ningún libro registrado.
+        </div>
+    </div>
+</div>
+
+{{/if}}    
+
+{{#section "scripts"}}
+ <script src="/assets/js/site/index.js"></script>
+{{/section}}
