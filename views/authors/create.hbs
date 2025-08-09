@@ -1,0 +1,38 @@
+<div class="row mt-4">
+    <h1 class="text-center">{{#if editMode}}Editar Autor "{{author.name}}"{{else}}Agregar Nuevo Autor{{/if}}</h1>
+</div>
+
+<div class="d-flex justify-content-center align-items-center mt-3 mb-3" id="authors-form-container">
+<div class="col-6">
+    <div class="card">
+        <div class="card-body">
+            <form method="post" id="base-form" action="/authors/{{#if editMode}}edit{{else}}create{{/if}}">
+
+                <div class="mb-3">
+                <label for="author-name" class="form-label">Nombre del Autor</label>
+                <input class="form-control" id="author-name" type="text" name="authorName" value="{{#if editMode}}{{author.name}}{{/if}}"  placeholder="Ej. Ariana Godoy" required>
+                </div>
+
+                <div class="mb-3">
+                <label for="author-email" class="form-label">Correo del Autor</label>
+                <input class="form-control" id="author-email" type="text" name="authorEmail" value="{{#if editMode}}{{author.email}}{{/if}}"  placeholder="Ej. AriGodoy92@Gm..." required>
+                </div>
+                
+                {{#if editMode}}
+                <input type="hidden" name="authorId" value="{{author.id}}">
+                {{/if}}
+
+                <div class="d-flex gap-2">
+                <div clas="col-6 mb-3">
+                    <a class="btn btn-danger" href="/authors/index" id="clear-button"><i class="bi bi-arrow-left"></i> Cancelar y Volver</a>
+                </div>  
+
+                <div clas="col-6 mb-3 ">
+                    <button type="submit" class="btn btn-primary" id="create-button"><i class="bi bi-floppy"></i> Guardar</button>
+                </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
